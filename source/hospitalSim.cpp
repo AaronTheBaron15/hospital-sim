@@ -15,22 +15,22 @@
 
 
 void HospitalSim::fillVec(){
-    std::ifstream file; //create an ifstream variable called file
-    file.open("C:/Users/aborjas22/Desktop/FinalProject/data/residents.txt"); //open the file at this filepath
+    std::cout << "fillVec check" << std::endl;
+    std::ifstream file("C:\\Users\\aborjas22\\Desktop\\github projects\\hospital-sim\\data\\residents.txt"); //create an ifstream variable called file
+    //for the file location, set it to the location of the residents.txt file on your computer.
     
     std::string name; //creates a new string called name, for holding the current line's name
-   
-    while(!file.eof()){ //while the file is not over
     
-        getline(file,name); //get the current line of the file and set name to be equal to it
+    while(getline(file, name)){ //while we can still get a line from the file
         Patient * p = new Patient(name); //create a new patient pointer on the heap of a patient with the name at the current line
+        //std::cout << p->getName() << std::endl;
         residents.push_back(*p); //push the new patient to the back of the residents vector
     }
     file.close(); //close the file
 }
 
 void HospitalSim::addPatient(Patient* pat){
-    
+    std::cout << "add patient check" << std::endl;
     int determineSeverity = (rand() % 10) + 1; //helps determine severity of the patient
     int severity; //the actual severity of the patient
     if(determineSeverity <= 7){ //if determine severity is lessthan or equal to 7
@@ -44,16 +44,18 @@ void HospitalSim::addPatient(Patient* pat){
     }
     
     pat->addVisit(severity); //add a new visit (severity) to the patient pointer
-    
+    std::cout << "add patient check 1" << std::endl;
     waitingRoom.push(pat); //push the patient pointer to the waiting room
     //say the patient has entered the hospital with a certain severity
+    std::cout << "add patient check 2" << std::endl;
     std::cout << pat->getName() << " has entered the Hospital. Severity: " << pat->getCurSeverity() << std::endl;
 
     pat->setTreated();//set treated bool to true, the patient visited the hospital
-
+    std::cout << "add patient check 3" << std::endl;
 }
 
 void HospitalSim::checkArrival(int clockTick){
+    std::cout << "checkArrival check" << std::endl;
     Patient* pat = &residents[rand() % 2000]; //create a patient pointer based on a random resident
         if(clockTick % 60 == 0){ //New hour starts
             minutesOfHour = 0;
@@ -70,6 +72,7 @@ void HospitalSim::checkArrival(int clockTick){
 }
 
 void HospitalSim::patientMenu() {//End of Simulation Report Menu
+    std::cout << "patientMenu check" << std::endl;
     std::vector<Patient> treated;//vector of the patients that were treated
     for(int i = 0; i < residents.size(); i++) {
         if(residents[i].isTreated()) {//fills the treated vector with patients that were treated. calls patient's isTreated() method

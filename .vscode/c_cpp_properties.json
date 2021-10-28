@@ -3,8 +3,8 @@
         {
             "name": "Whitworth CS",
             "includePath": [
-                "\"${workspaceFolder}\"/**",
-                "\"C:/googletest/include\""
+                "${workspaceFolder}/**"
+                
             ],
             "defines": [
                 "_DEBUG"
